@@ -1,9 +1,10 @@
-FROM photon:2.0
+FROM arm64v8/photon:3.0
 
 MAINTAINER wangyan@vmware.com
 
 # The original script in the docker offical registry image.
-RUN tdnf install sudo -y >> /dev/null\
+RUN tdnf install shadow sudo -y >> /dev/null\
+    && chage -M 99999 root \
     && tdnf clean all \
     && mkdir /harbor/ \
     && mkdir -p /etc/registry \
