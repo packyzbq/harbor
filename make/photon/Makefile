@@ -210,7 +210,7 @@ define _get_binary
 endef
 
 #build: _build_prepare _build_db _build_portal _build_core _build_jobservice _build_log _build_nginx _build_registry _build_registryctl _build_notary _build_clair _build_redis _build_migrator _build_chart_server
-build: _build_prepare _build_db _build_portal _build_core _build_jobservice _build_nginx _build_registry _build_registryctl _build_redis _build_chart_server
+build: _build_db _build_portal _build_core _build_jobservice _build_nginx _build_registry _build_registryctl _build_redis _build_chart_server
 
 cleanimage:
 	@echo "cleaning image for photon..."
