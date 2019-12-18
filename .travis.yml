@@ -8,20 +8,20 @@ go_import_path: github.com/goharbor/harbor
 services:
 - docker
 dist: trusty
-matrix:
-  include:
-  - go: 1.12.12
-    env:
-    - UTTEST=true
-  - go: 1.12.12
-    env:
-    - APITEST_DB=true
-  - go: 1.12.12
-    env:
-    - APITEST_LDAP=true
-  - go: 1.12.12
-    env:
-    - OFFLINE=true
+#matrix:
+##  include:
+#  - go: 1.12.12
+#    env:
+#    - UTTEST=true
+#  - go: 1.12.12
+#    env:
+#    - APITEST_DB=true
+#  - go: 1.12.12
+#    env:
+#    - APITEST_LDAP=true
+#  - go: 1.12.12
+#    env:
+#    - OFFLINE=true
 env:
   global:
   - DOCKER_USER: packyzbq
