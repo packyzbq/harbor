@@ -1,4 +1,4 @@
-FROM node:10.15.0 as nodeportal
+FROM arm64v8/node:10.15 as nodeportal
 
 WORKDIR /build_dir
 
@@ -23,7 +23,7 @@ RUN ls -la \
     && npm run release
 
 
-FROM photon:2.0
+FROM arm64v8/photon:3.0
 
 COPY --from=nodeportal /build_dir/dist /usr/share/nginx/html
 COPY --from=nodeportal /build_dir/swagger.yaml /usr/share/nginx/html
