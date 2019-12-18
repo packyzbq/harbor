@@ -1,5 +1,7 @@
 sudo: true
 language: go
+arch:
+- arm64
 go:
 - 1.13.4
 go_import_path: github.com/goharbor/harbor
