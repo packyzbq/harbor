@@ -71,7 +71,7 @@ DOCKERIMAGENAME_CLAIR=clair-photon
 
 DOCKERFILEPATH_NGINX=$(DOCKERFILEPATH)/nginx
 DOCKERFILENAME_NGINX=Dockerfile
-DOCKERIMAGENAME_NGINX=harbor-nginx-photon
+DOCKERIMAGENAME_NGINX=harbor-nginx
 
 DOCKERFILEPATH_REG=$(DOCKERFILEPATH)/registry
 DOCKERFILENAME_REG=Dockerfile
@@ -174,7 +174,7 @@ _build_chart_server:
 
 _build_nginx:
 	@echo "building nginx container for photon..."
-	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_NGINX)/$(DOCKERFILENAME_NGINX) -t $(DOCKERIMAGENAME_NGINX):$(NGINXVERSION) .
+	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_NGINX)/$(DOCKERFILENAME_NGINX) -t $(DOCKERIMAGENAME_NGINX):$(VERSIONTAG) .
 	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
 	@docker tag $(DOCKERIMAGENAME_NGINX):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-nginx:arm64
 	@docker push $(DOCKER_USERNAME)/harbor-nginx:arm64
@@ -239,7 +239,7 @@ define _get_binary
 endef
 
 #build: _build_prepare _build_db _build_portal _build_core _build_jobservice _build_log _build_nginx _build_registry _build_registryctl _build_notary _build_clair _build_redis _build_migrator _build_chart_server
-build:  _build_core _build_jobservice _build_nginx _build_registry _build_registryctl _build_redis _build_chart_server
+build:   _build_nginx _build_registry _build_registryctl _build_redis _build_chart_server
 
 cleanimage:
 	@echo "cleaning image for photon..."
