@@ -117,9 +117,9 @@ _build_db:
 
 _build_portal:
 	@echo "building portal container for photon..."
-	$(DOCKERBUILD) --build-arg npm_registry=$(NPM_REGISTRY) -f $(DOCKERFILEPATH_PORTAL)/$(DOCKERFILENAME_PORTAL) -t $(DOCKERFILEPATH_PORTAL):$(VERSIONTAG) .
+	$(DOCKERBUILD) --build-arg npm_registry=$(NPM_REGISTRY) -f $(DOCKERFILEPATH_PORTAL)/$(DOCKERFILENAME_PORTAL) -t $(DOCKERIMAGENAME_PORTAL):$(VERSIONTAG) .
 	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
-	@docker tag $(DOCKERFILEPATH_PORTAL):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-portal:arm64
+	@docker tag $(DOCKERIMAGENAME_PORTAL):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-portal:arm64
 	@docker push $(DOCKER_USERNAME)/harbor-portal:arm64
 	@echo "Done."
 
