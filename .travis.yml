@@ -24,6 +24,8 @@ matrix:
     - OFFLINE=true
 env:
   global:
+  - DOCKER_USER: packyzbq
+  - DOCKER_PASSWD: Qw./a111zbq
   - POSTGRESQL_HOST: localhost
   - POSTGRESQL_PORT: 5432
   - POSTGRESQL_USR: postgres
@@ -68,6 +70,6 @@ script:
 - if [ "$OFFLINE" == true ]; then bash ./tests/travis/distro_installer.sh; fi
 deploy:
   provider: script
-  script: bash docker_push
+  script: bash push_image.sh
   on:
     branch: release-1.9.0
