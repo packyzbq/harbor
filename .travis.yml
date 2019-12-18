@@ -1,4 +1,6 @@
 sudo: true
+arch:
+- arm64
 language: go
 go:
 - 1.12.12
