@@ -1,6 +1,7 @@
-FROM photon:2.0
+FROM arm64v8/photon:3.0
 
-RUN tdnf install sudo tzdata -y >> /dev/null \
+RUN tdnf install shadow sudo tzdata -y >> /dev/null \
+    && chage -M 99999 root \
     && tdnf clean all \
     && groupadd -r -g 10000 harbor && useradd --no-log-init -r -g 10000 -u 10000 harbor \
     && mkdir /harbor/
