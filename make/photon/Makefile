@@ -5,6 +5,9 @@
 # build: 	build harbor photon images
 # clean:	clean core and jobservice harbor images
 
+DOCKER_USERNAME=packyzbq
+DOCKER_PASSWD=Qw./a111zbq
+
 # common
 SHELL := /bin/bash
 BUILDPATH=$(CURDIR)
@@ -14,6 +17,7 @@ SRCPATH=./src
 TOOLSPATH=$(CURDIR)/tools
 SEDCMD=$(shell which sed)
 WGET=$(shell which wget)
+BUILDBIN=true
 
 # docker parameters
 DOCKERCMD=$(shell which docker)
@@ -107,20 +111,32 @@ _build_db:
 	@echo "building db container for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_DB)/$(DOCKERFILENAME_DB) -t $(DOCKERIMAGENAME_DB):$(VERSIONTAG) .
 	@echo "Done."
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_DB):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-db:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-db:arm64
 
 _build_portal:
 	@echo "building portal container for photon..."
-	$(DOCKERBUILD) --build-arg npm_registry=$(NPM_REGISTRY) -f $(DOCKERFILEPATH_PORTAL)/$(DOCKERFILENAME_PORTAL) -t $(DOCKERIMAGENAME_PORTAL):$(VERSIONTAG) .
+	$(DOCKERBUILD) --build-arg npm_registry=$(NPM_REGISTRY) -f $(DOCKERFILEPATH_PORTAL)/$(DOCKERFILENAME_PORTAL) -t $(DOCKERFILEPATH_PORTAL):$(VERSIONTAG) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERFILEPATH_PORTAL):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-portal:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-portal:arm64
 	@echo "Done."
 
 _build_core:
 	@echo "building core container for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_CORE)/$(DOCKERFILENAME_CORE) -t $(DOCKERIMAGENAME_CORE):$(VERSIONTAG) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_CORE):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-core:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-core:arm64
 	@echo "Done."
 
 _build_jobservice:
 	@echo "building jobservice container for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_JOBSERVICE)/$(DOCKERFILENAME_JOBSERVICE) -t $(DOCKERIMAGENAME_JOBSERVICE):$(VERSIONTAG) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_JOBSERVICE):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-jobservice:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-jobservice:arm64
 	@echo "Done."
 
 _build_log:
@@ -159,6 +175,9 @@ _build_chart_server:
 _build_nginx:
 	@echo "building nginx container for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_NGINX)/$(DOCKERFILENAME_NGINX) -t $(DOCKERIMAGENAME_NGINX):$(NGINXVERSION) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_NGINX):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-nginx:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-nginx:arm64
 	@echo "Done."
 
 _build_notary:
@@ -186,17 +205,26 @@ _build_registry:
 	fi
 	@echo "building registry container for photon..."
 	@chmod 655 $(DOCKERFILEPATH_REG)/binary/registry && $(DOCKERBUILD) -f $(DOCKERFILEPATH_REG)/$(DOCKERFILENAME_REG) -t $(DOCKERIMAGENAME_REG):$(REGISTRYVERSION)-$(VERSIONTAG) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_REG):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-registry:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-registry:arm64
 	@echo "Done."
 
 _build_registryctl:
 	@echo "building registry controller for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_REGISTRYCTL)/$(DOCKERFILENAME_REGISTRYCTL) -t $(DOCKERIMAGENAME_REGISTRYCTL):$(VERSIONTAG) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_REGISTRYCTL):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-registryctl:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-registryctl:arm64
 	@rm -rf $(DOCKERFILEPATH_REG)/binary
 	@echo "Done."
 
 _build_redis:
 	@echo "building redis container for photon..."
 	@$(DOCKERBUILD) -f $(DOCKERFILEPATH_REDIS)/$(DOCKERFILENAME_REDIS) -t $(DOCKERIMAGENAME_REDIS):$(REDISVERSION) .
+	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	@docker tag $(DOCKERIMAGENAME_REDIS):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-redis:arm64
+	@docker push $(DOCKER_USERNAME)/harbor-redis:arm64
 	@echo "Done."
 
 _build_migrator:
