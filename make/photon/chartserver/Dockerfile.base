@@ -1,7 +1,7 @@
 FROM arm64v8/photon:3.0
 
 RUN tdnf install -y shadow sudo >>/dev/null\
-    && chage -M 99999 root
+    && chage -M 99999 root \
     && tdnf clean all \
     && groupadd -r -g 10000 chart \
     && useradd --no-log-init -m -g 10000 -u 10000 chart
