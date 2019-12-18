@@ -8,7 +8,7 @@
 # common
 SHELL := /bin/bash
 BUILDPATH=$(CURDIR)
-MAKEPATH=$(BUILDPATH)/../../make
+MAKEPATH=$(BUILDPATH)/make
 MAKEDEVPATH=$(MAKEPATH)/dev
 SRCPATH=./src
 TOOLSPATH=$(CURDIR)/tools
