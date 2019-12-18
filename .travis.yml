@@ -66,3 +66,8 @@ script:
 - if [ "$APITEST_DB" == true ]; then bash ./tests/travis/api_run.sh DB $IP; fi
 - if [ "$APITEST_LDAP" == true ]; then bash ./tests/travis/api_run.sh LDAP $IP; fi
 - if [ "$OFFLINE" == true ]; then bash ./tests/travis/distro_installer.sh; fi
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: release-1.9.0
