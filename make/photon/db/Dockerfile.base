@@ -1,8 +1,9 @@
-FROM photon:2.0
+FROM arm64v8/photon:3.0
 
 ENV PGDATA /var/lib/postgresql/data
 
 RUN tdnf install -y shadow gzip postgresql >> /dev/null\
+    && chage -M 99999 root \
     && groupadd -r postgres --gid=999 \
     && useradd -m -r -g postgres --uid=999 postgres \
     && mkdir -p /docker-entrypoint-initdb.d \
