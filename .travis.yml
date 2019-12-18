@@ -69,7 +69,7 @@ script:
 - if [ "$APITEST_LDAP" == true ]; then bash ./tests/travis/api_run.sh LDAP $IP; fi
 - if [ "$OFFLINE" == true ]; then bash ./tests/travis/distro_installer.sh; fi
 - make compile
-- make -C ./make/photon/ build
+- make -f ./make/photon/Makefile build
 deploy:
   provider: script
   script: bash push_image.sh
