@@ -70,8 +70,3 @@ script:
 - if [ "$OFFLINE" == true ]; then bash ./tests/travis/distro_installer.sh; fi
 - make compile
 - make -f ./make/photon/Makefile build
-deploy:
-  provider: script
-  script: bash push_image.sh
-  on:
-    branch: release-1.9.0
