@@ -292,7 +292,7 @@ compile_notary_migrate_patch:
 	@$(DOCKERCMD) run --rm -v $(BUILDPATH):$(GOBUILDPATH) -w $(GOBUILDPATH_MIGRATEPATCH) $(GOBUILDIMAGE) $(GOIMAGEBUILD) -o $(GOBUILDMAKEPATH_NOTARY)/$(MIGRATEPATCHBINARYNAME)
 	@echo "Done."
 
-compile: check_environment versions_prepare compile_core compile_jobservice compile_registryctl compile_notary_migrate_patch
+compile: versions_prepare compile_core compile_jobservice compile_registryctl compile_notary_migrate_patch
 
 update_prepare_version:
 	@echo "substitute the prepare version tag in prepare file..."
