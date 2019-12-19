@@ -203,7 +203,7 @@ _build_registry:
 		rm -rf $(DOCKERFILEPATH_REG)/binary && mkdir -p $(DOCKERFILEPATH_REG)/binary && \
 		$(call _get_binary, https://storage.googleapis.com/harbor-builds/bin/registry/release-$(REGISTRYVERSION)/registry, $(DOCKERFILEPATH_REG)/binary/registry); \
 	else \
-		cd $(DOCKERFILEPATH_REG) && $(DOCKERFILEPATH_REG)/builder v2.7.0 && cd - ; \
+		cd $(DOCKERFILEPATH_REG) && $(DOCKERFILEPATH_REG)/builder v2.7.1 && cd - ; \
 	fi
 	@echo "building registry container for photon..."
 	@chmod 655 $(DOCKERFILEPATH_REG)/binary/registry && $(DOCKERBUILD) -f $(DOCKERFILEPATH_REG)/$(DOCKERFILENAME_REG) -t $(DOCKERIMAGENAME_REG):$(VERSIONTAG) .
