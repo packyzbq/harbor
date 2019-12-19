@@ -18,6 +18,7 @@ TOOLSPATH=$(CURDIR)/tools
 SEDCMD=$(shell which sed)
 WGET=$(shell which wget)
 BUILDBIN=true
+CHARTFLAG=true
 
 # docker parameters
 DOCKERCMD=$(shell which docker)
