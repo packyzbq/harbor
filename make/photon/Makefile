@@ -201,7 +201,7 @@ _build_registry:
 		rm -rf $(DOCKERFILEPATH_REG)/binary && mkdir -p $(DOCKERFILEPATH_REG)/binary && \
 		$(call _get_binary, https://storage.googleapis.com/harbor-builds/bin/registry/release-$(REGISTRYVERSION)/registry, $(DOCKERFILEPATH_REG)/binary/registry); \
 	else \
-		cd $(DOCKERFILEPATH_REG) && $(DOCKERFILEPATH_REG)/builder $(REGISTRY_SRC_TAG) && cd - ; \
+		cd $(DOCKERFILEPATH_REG) && $(DOCKERFILEPATH_REG)/builder v2.7.0 && cd - ; \
 	fi
 	@echo "building registry container for photon..."
 	@chmod 655 $(DOCKERFILEPATH_REG)/binary/registry && $(DOCKERBUILD) -f $(DOCKERFILEPATH_REG)/$(DOCKERFILENAME_REG) -t $(DOCKERIMAGENAME_REG):$(REGISTRYVERSION)-$(VERSIONTAG) .
@@ -239,7 +239,7 @@ define _get_binary
 endef
 
 #build: _build_prepare _build_db _build_portal _build_core _build_jobservice _build_log _build_nginx _build_registry _build_registryctl _build_notary _build_clair _build_redis _build_migrator _build_chart_server
-build:   _build_nginx _build_registry _build_registryctl _build_redis _build_chart_server
+build:   _build_registry _build_registryctl _build_redis _build_chart_server
 
 cleanimage:
 	@echo "cleaning image for photon..."
