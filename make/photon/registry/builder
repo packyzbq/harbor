@@ -28,8 +28,8 @@ git apply 2879.patch
 cd $cur
 
 echo 'build the registry binary ...'
-cp Dockerfile.binary $TEMP
-docker build -f $TEMP/Dockerfile.binary -t registry-golang $TEMP
+cp Dockerfile.binary sourcecode
+docker build -f sourcecode/Dockerfile.binary -t registry-golang sourcecode
 
 echo 'copy the registry binary to local...'
 ID=$(docker create registry-golang)
@@ -40,5 +40,5 @@ docker rmi -f registry-golang
 
 echo "Build registry binary success, then to build photon image..."
 cd $cur
-cp $TEMP/cmd/registry/config-example.yml config.yml
+cp sourcecode/cmd/registry/config-example.yml config.yml
 rm -rf $TEMP
