@@ -17,11 +17,11 @@ rm -rf binary/registry || true
 
 cd `dirname $0`
 cur=$PWD
-mkdir -p source
+mkdir -p sourcecode
 # the temp folder to store distribution source code...
-git clone -b $VERSION https://github.com/docker/distribution.git source
+git clone -b $VERSION https://github.com/docker/distribution.git sourcecode
 # add patch 2879
-cd source/
+cd sourcecode
 echo 'add patch https://github.com/docker/distribution/pull/2879 ...'
 wget https://github.com/docker/distribution/pull/2879.patch
 git apply 2879.patch
