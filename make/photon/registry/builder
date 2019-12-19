@@ -33,6 +33,7 @@ docker build -f sourcecode/Dockerfile.binary -t registry-golang sourcecode
 
 echo 'copy the registry binary to local...'
 ID=$(docker create registry-golang)
+echo 'docker cp $ID:/go/src/github.com/docker/distribution/bin binary'
 docker cp $ID:/go/src/github.com/docker/distribution/bin binary
 
 docker rm -f $ID
