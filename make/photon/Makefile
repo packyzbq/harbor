@@ -204,7 +204,7 @@ _build_registry:
 		cd $(DOCKERFILEPATH_REG) && $(DOCKERFILEPATH_REG)/builder v2.7.0 && cd - ; \
 	fi
 	@echo "building registry container for photon..."
-	@chmod 655 $(DOCKERFILEPATH_REG)/binary/registry && $(DOCKERBUILD) -f $(DOCKERFILEPATH_REG)/$(DOCKERFILENAME_REG) -t $(DOCKERIMAGENAME_REG):$(REGISTRYVERSION)-$(VERSIONTAG) .
+	@chmod 655 $(DOCKERFILEPATH_REG)/binary/registry && $(DOCKERBUILD) -f $(DOCKERFILEPATH_REG)/$(DOCKERFILENAME_REG) -t $(DOCKERIMAGENAME_REG):$(VERSIONTAG) .
 	@echo "$(DOCKER_PASSWD)"| docker login -u "$(DOCKER_USERNAME)" --password-stdin
 	@docker tag $(DOCKERIMAGENAME_REG):$(VERSIONTAG) $(DOCKER_USERNAME)/harbor-registry:arm64
 	@docker push $(DOCKER_USERNAME)/harbor-registry:arm64
